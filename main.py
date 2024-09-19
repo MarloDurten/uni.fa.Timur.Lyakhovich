@@ -13,14 +13,14 @@ import random
 GameNums={}
 
 
-def gamelogick_NumsGeneration():
+def gamelogic_NumsGeneration():
 
     for i in range(1,10):
         m= random.randint(1,9)
         GameNums.update({i:m})
     return GameNums
 
-gamelogick_NumsGeneration()
+gamelogic_NumsGeneration()
 print(GameNums)
 
 def gameplay_numbers():   
