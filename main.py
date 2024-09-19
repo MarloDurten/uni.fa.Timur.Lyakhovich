@@ -10,6 +10,18 @@ import random
 # 3. Подружить словарь и поле для вывода поля с значениями
 # 4. Придумать логику игры
 #  
+GameNums={}
+
+
+def gamelogick_NumsGeneration():
+
+    for i in range(1,10):
+        m= random.randint(1,9)
+        GameNums.update({i:m})
+    return GameNums
+
+gamelogick_NumsGeneration()
+print(GameNums)
 
 def gameplay_numbers():   
     numbers=[]
@@ -18,13 +30,9 @@ def gameplay_numbers():
     return numbers
 
 
-
-# 1 | 1 | 1
-# 1 | 1 | 1
-# 1 | 1 | 1
 def gamefield_generator(numbers):
-    print('''{\f} | {\f} | {\f}
-{\f} | {\f} | {\f}
-{\f} | {\f} | {\f} ''')
+    print('''{} | {} | {}
+{} | {} | {}
+{} | {} | {} '''.format(GameNums.get(1),GameNums.get(2),GameNums.get(3),GameNums.get(4),GameNums.get(5),GameNums.get(6),GameNums.get(7),GameNums.get(8),GameNums.get(9)))
         
 gamefield_generator(gameplay_numbers())
