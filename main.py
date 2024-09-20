@@ -10,42 +10,22 @@ import random
 # 3. Подружить словарь и поле для вывода поля с значениями
 # 4. Придумать логику игры
 #  
-GameNums={}
-
 
 GameNums_2D=[]
 
 def gamelogic_NumsGen_2D(GameNums_2D): #Работает
-    for i in range(3):
+    for string in range(3):
         rN=[]
-        for j in range(3):
+        for n in range(3):
             num=random.randint(1,9)
             rN.append(num)
         GameNums_2D.append(rN)
 
 
 
-
-def gamelogic_NumsGeneration():
-
-    for i in range(1,10):
-        m= random.randint(1,9)
-        GameNums.update({i:m})
-    return GameNums
-
-def gameplay_numbers():   
-    numbers=[]
-    for i in range (9):
-        numbers.append(random.randint(1,9))
-    return numbers
-
-
-def gamefield_generator(GameNums):
-    print('''| {} | {} | {} |
-| {} | {} | {} |
-| {} | {} | {} |'''.format(GameNums.get(1),GameNums.get(2),GameNums.get(3),GameNums.get(4),GameNums.get(5),GameNums.get(6),GameNums.get(7),GameNums.get(8),GameNums.get(9)))
-        
-
+def gamefield_gen_2D(GameNums_2D): # Работает
+   for arr in GameNums_2D:
+       print('| {} | {} | {} |'.format(arr[0],arr[1],arr[2]))
 
 
 
@@ -53,7 +33,4 @@ def gamefield_generator(GameNums):
 
 gamelogic_NumsGen_2D(GameNums_2D)
 print(GameNums_2D)
-
-# gamelogic_NumsGeneration()
-# print(GameNums)
-# gamefield_generator(gameplay_numbers())
+gamefield_gen_2D(GameNums_2D)
