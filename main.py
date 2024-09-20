@@ -13,6 +13,19 @@ import random
 GameNums={}
 
 
+GameNums_2D=[]
+
+def gamelogic_NumsGen_2D(GameNums_2D): #Работает
+    for i in range(3):
+        rN=[]
+        for j in range(3):
+            num=random.randint(1,9)
+            rN.append(num)
+        GameNums_2D.append(rN)
+
+
+
+
 def gamelogic_NumsGeneration():
 
     for i in range(1,10):
@@ -27,10 +40,10 @@ def gameplay_numbers():
     return numbers
 
 
-def gamefield_generator(numbers):
-    print('''{} | {} | {}
-{} | {} | {}
-{} | {} | {} '''.format(GameNums.get(1),GameNums.get(2),GameNums.get(3),GameNums.get(4),GameNums.get(5),GameNums.get(6),GameNums.get(7),GameNums.get(8),GameNums.get(9)))
+def gamefield_generator(GameNums):
+    print('''| {} | {} | {} |
+| {} | {} | {} |
+| {} | {} | {} |'''.format(GameNums.get(1),GameNums.get(2),GameNums.get(3),GameNums.get(4),GameNums.get(5),GameNums.get(6),GameNums.get(7),GameNums.get(8),GameNums.get(9)))
         
 
 
@@ -38,6 +51,9 @@ def gamefield_generator(numbers):
 
 # test
 
-gamelogic_NumsGeneration()
-print(GameNums)
-gamefield_generator(gameplay_numbers())
+gamelogic_NumsGen_2D(GameNums_2D)
+print(GameNums_2D)
+
+# gamelogic_NumsGeneration()
+# print(GameNums)
+# gamefield_generator(gameplay_numbers())
