@@ -27,10 +27,23 @@ def gamefield_gen_2D(GameNums_2D): # Работает
    for arr in GameNums_2D:
        print('| {} | {} | {} |'.format(arr[0],arr[1],arr[2]))
 
-
+# 
 
 # test
 
 gamelogic_NumsGen_2D(GameNums_2D)
 print(GameNums_2D)
 gamefield_gen_2D(GameNums_2D)
+
+
+
+
+
+
+
+
+
+
+
+
+
