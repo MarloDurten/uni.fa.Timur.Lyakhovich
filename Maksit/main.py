@@ -44,103 +44,124 @@ def isTherePossibleMoveLeftSP(GameNums_2D, prev_move):
 
 # func to make Player 1 move
 def FirstPlayerMove(turn_counter, score, prev_move):
-    
-    if isTherePossibleMoveLeftFP(GameNums_2D, prev_move) == False and (prev_move[0] == -1 and prev_move[1] == -1):
-        print('There is no moves left for First Player, so Second Player keeps on cooking')
-        turn_counter+=1
-        clearConsole()
-        SecondPlayerMove(turn_counter, score, prev_move)
         
-    chosenDot = []
-
-    print('First Player Move (column, row): ', end='')
-    chosenDot = str(input()).split()
-        
-    if convertDotCoordsToInt(chosenDot) == 0:
-        print('     !!! Incorrect dot coordinats input')
-        clearConsole()
-        FirstPlayerMove(turn_counter, score, prev_move)
-        
+    if (isTherePossibleMoveLeftFP(GameNums_2D, prev_move) == False) and (isTherePossibleMoveLeftSP(GameNums_2D, prev_move) == False):
+        endGame(turn_counter, score)        
     else:
-        if prev_move[0] == -1 and prev_move[1] == -1:
-            # the first move ever
-            prev_move = chosenDot
-            score[0] += GameNums_2D[chosenDot[1]-1][chosenDot[0]-1]
-            GameNums_2D[chosenDot[1]-1][chosenDot[0]-1] = ''
-            
+        if isTherePossibleMoveLeftFP(GameNums_2D, prev_move) == False and (prev_move[0] != -1 and prev_move[1] != -1):
+            print('There is no moves left for First Player, so Second Player keeps on cooking')
+            turn_counter+=1
+            clearConsole()
+            SecondPlayerMove(turn_counter, score, prev_move)
+        
+        chosenDot = []
+
+        print('First Player Move (column, row): ', end='')
+        chosenDot = str(input()).split()
+        
+        if convertDotCoordsToInt(chosenDot) == 0:
+            print('     !!! Incorrect dot coordinats input')
+            clearConsole()
+            FirstPlayerMove(turn_counter, score, prev_move)
+        
         else:
-            if chosenDot[1] == prev_move[1]:    # if the move is being made in the same row as the previous one
-                if GameNums_2D[chosenDot[1]-1][chosenDot[0]-1] == '':    # if the move was already made before ('' means not avaliable)
-                    print('     !!! You are trying to choose already made before move')
+            if prev_move[0] == -1 and prev_move[1] == -1:
+                # the first move ever
+                prev_move = chosenDot
+                score[0] += GameNums_2D[chosenDot[1]-1][chosenDot[0]-1]
+            
+            else:
+                if chosenDot[1] == prev_move[1]:    # if the move is being made in the same row as the previous one
+                    if GameNums_2D[chosenDot[1]-1][chosenDot[0]-1] == '':    # if the move was already made before ('' means not avaliable)
+                        print('     !!! You are trying to choose already made before move')
+                        clearConsole()
+                        FirstPlayerMove(turn_counter, score, prev_move)
+                    else:
+                        prev_move = chosenDot
+                        score[0] += GameNums_2D[chosenDot[1]-1][chosenDot[0]-1]
+                
+                else:
+                    print('     !!! Gotta make move in the same ROW as the first player')
                     clearConsole()
                     FirstPlayerMove(turn_counter, score, prev_move)
-                else:
-                    prev_move = chosenDot
-                    score[0] += GameNums_2D[chosenDot[1]-1][chosenDot[0]-1]
-                    GameNums_2D[chosenDot[1]-1][chosenDot[0]-1] = ''
-                
-            else:
-                print('     !!! Gotta make move in the same ROW as the first player')
-                clearConsole()
-                FirstPlayerMove(turn_counter, score, prev_move)
         
-        print(f'\nFirst Player Move is: {chosenDot}({GameNums_2D[chosenDot[1]-1][chosenDot[0]-1]}). It makes their score: {score[0]}', end='')
-        turn_counter+=1
-        clearConsole()
-        main(turn_counter, score, prev_move)
+            print(f'\nFirst Player Move is: {chosenDot}({GameNums_2D[chosenDot[1]-1][chosenDot[0]-1]}). It makes their score: {score[0]}', end='')
+            GameNums_2D[chosenDot[1]-1][chosenDot[0]-1] = ''
+            turn_counter+=1
+            clearConsole()
+            main(turn_counter, score, prev_move)
+    
 
 
 # func to make Player 2 move
 def SecondPlayerMove(turn_counter, score, prev_move):
-    
-    if isTherePossibleMoveLeftSP(GameNums_2D, prev_move) == False:
-        print('There is no moves left for Second Player, so First Player keeps on cooking')
-        turn_counter+=1
-        clearConsole()
-        FirstPlayerMove(turn_counter, score, prev_move)
         
-    chosenDot = []
-    
-    print('Second Player Move: ', end='')
-    chosenDot = str(input()).split()
-        
-    if convertDotCoordsToInt(chosenDot) == 0:
-        print('     !!! Incorrect dot coordinats input')
-        clearConsole()
-        SecondPlayerMove(turn_counter, score, prev_move)
-        
+    if (isTherePossibleMoveLeftFP(GameNums_2D, prev_move) == False) and (isTherePossibleMoveLeftSP(GameNums_2D, prev_move) == False):
+        endGame(turn_counter, score)
     else:
-        if chosenDot[0] == prev_move[0]:    # if the move is being made in the same column as the previous one
-            if GameNums_2D[chosenDot[1]-1][chosenDot[0]-1] == '':    # if the move was already made before ('' means not avaliable)
-                print('     !!! You are trying to choose already made before move')
-                clearConsole()
-                SecondPlayerMove(turn_counter, score, prev_move)
-            else:
-                prev_move = chosenDot
-                score[1] += GameNums_2D[chosenDot[1]-1][chosenDot[0]-1]
-                GameNums_2D[chosenDot[1]-1][chosenDot[0]-1] = ''
-                
-        else:
-            print('     !!! Gotta make move in the same COLUMN as the first player')
+        if isTherePossibleMoveLeftSP(GameNums_2D, prev_move) == False:
+            print('There is no moves left for Second Player, so First Player keeps on cooking')
+            turn_counter+=1
+            clearConsole()
+            FirstPlayerMove(turn_counter, score, prev_move)
+        
+        chosenDot = []
+    
+        print('Second Player Move: ', end='')
+        chosenDot = str(input()).split()
+        
+        if convertDotCoordsToInt(chosenDot) == 0:
+            print('     !!! Incorrect dot coordinats input')
             clearConsole()
             SecondPlayerMove(turn_counter, score, prev_move)
         
-        print(f'\nSecond Player Move is: {chosenDot}({GameNums_2D[chosenDot[1]-1][chosenDot[0]-1]}). It makes their score: {score[1]}', end='')
-        turn_counter+=1
-        clearConsole()
-        main(turn_counter, score, prev_move)
+        else:
+            if chosenDot[0] == prev_move[0]:    # if the move is being made in the same column as the previous one
+                if GameNums_2D[chosenDot[1]-1][chosenDot[0]-1] == '':    # if the move was already made before ('' means not avaliable)
+                    print('     !!! You are trying to choose already made before move')
+                    clearConsole()
+                    SecondPlayerMove(turn_counter, score, prev_move)
+                else:
+                    prev_move = chosenDot
+                    score[1] += GameNums_2D[chosenDot[1]-1][chosenDot[0]-1]
+                
+            else:
+                print('     !!! Gotta make move in the same COLUMN as the first player')
+                clearConsole()
+                SecondPlayerMove(turn_counter, score, prev_move)
+        
+            print(f'\nSecond Player Move is: {chosenDot}({GameNums_2D[chosenDot[1]-1][chosenDot[0]-1]}). It makes their score: {score[1]}', end='')
+            GameNums_2D[chosenDot[1]-1][chosenDot[0]-1] = ''
+            turn_counter+=1
+            clearConsole()
+            main(turn_counter, score, prev_move)
+        
+
+
+def endGame(turn_counter, score):
+    print('\n'*3)
+    print('     !!! GAME IS OVER !!!     ')
+    if score[0] > score[1]:
+        print(f'   Winner - First Player. It took him {turn_counter} turns')
+        print(f'   First Player Score:{score[0]}, Second Player Score:{score[1]}')
+    else:
+        print('   Winner - Second Player.')
+        print(f'   Second Player Score:{score[1]}, First Player Score:{score[0]}')
+    turn_counter = -1
 
 
 def main(turn_counter, score, prev_move):
     
-
-    print('\n'*2)
-    gamefield_gen_2D(GameNums_2D, turn_counter, score)
-    
-    if turn_counter % 2 != 0:
-        FirstPlayerMove(turn_counter, score, prev_move)
+    if turn_counter == -1:
+        return 0
     else:
-        SecondPlayerMove(turn_counter, score, prev_move)
+        print('\n'*2)
+        gamefield_gen_2D(GameNums_2D, turn_counter, score)
+    
+        if turn_counter % 2 != 0:
+            FirstPlayerMove(turn_counter, score, prev_move)
+        else:
+            SecondPlayerMove(turn_counter, score, prev_move)
 
 
 if __name__ == '__main__':
