@@ -29,11 +29,30 @@ def convertDotCoordsToInt(arr):
     return(arr)
     
 
+# func to check if there is move left for the the First Player
+def isTherePossibleMoveLeftFP(GameNums_2D, prev_move):
+    for i in GameNums_2D[prev_move[1]-1]:
+        if i != '': return True
+    return False
+
+# func to check if there is move left for the the Second Player
+def isTherePossibleMoveLeftSP(GameNums_2D, prev_move):
+    column = [row[prev_move[0]-1] for row in GameNums_2D]
+    for i in column:
+        if i != '': return True
+    return False
 
 # func to make Player 1 move
 def FirstPlayerMove(turn_counter, score, prev_move):
-    chosenDot = []
     
+    if isTherePossibleMoveLeftFP(GameNums_2D, prev_move) == False and (prev_move[0] == -1 and prev_move[1] == -1):
+        print('There is no moves left for First Player, so Second Player keeps on cooking')
+        turn_counter+=1
+        clearConsole()
+        SecondPlayerMove(turn_counter, score, prev_move)
+        
+    chosenDot = []
+
     print('First Player Move (column, row): ', end='')
     chosenDot = str(input()).split()
         
@@ -57,7 +76,7 @@ def FirstPlayerMove(turn_counter, score, prev_move):
                     FirstPlayerMove(turn_counter, score, prev_move)
                 else:
                     prev_move = chosenDot
-                    score[1] += GameNums_2D[chosenDot[1]-1][chosenDot[0]-1]
+                    score[0] += GameNums_2D[chosenDot[1]-1][chosenDot[0]-1]
                     GameNums_2D[chosenDot[1]-1][chosenDot[0]-1] = ''
                 
             else:
@@ -73,6 +92,13 @@ def FirstPlayerMove(turn_counter, score, prev_move):
 
 # func to make Player 2 move
 def SecondPlayerMove(turn_counter, score, prev_move):
+    
+    if isTherePossibleMoveLeftSP(GameNums_2D, prev_move) == False:
+        print('There is no moves left for Second Player, so First Player keeps on cooking')
+        turn_counter+=1
+        clearConsole()
+        FirstPlayerMove(turn_counter, score, prev_move)
+        
     chosenDot = []
     
     print('Second Player Move: ', end='')
@@ -113,10 +139,8 @@ def main(turn_counter, score, prev_move):
     
     if turn_counter % 2 != 0:
         FirstPlayerMove(turn_counter, score, prev_move)
-        turn_counter+=1;
     else:
         SecondPlayerMove(turn_counter, score, prev_move)
-        turn_counter+=1;
 
 
 if __name__ == '__main__':
