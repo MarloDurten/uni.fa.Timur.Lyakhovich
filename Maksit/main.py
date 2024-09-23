@@ -2,22 +2,23 @@ import random
 from random import randint
 
 # func to display field in the console
-def gamefield_gen_2D(GameNums_2D): # Работает
+def gamefield_gen_2D(GameNums_2D):
     print('')
     for i in GameNums_2D:
         for j in i:
             print(f'   {j}', end = '   ')
         print('\n')
-        
-def convertDotCoordsToInt(arr): # Работает
+
+# func to convert given array of strings to array of ints and to check if the given coords are proper (between 1 and 3)
+def convertDotCoordsToInt(arr):
     for i in range(len(arr)):
         arr[i] = int(arr[i])
-        if arr[i] < 0 or arr[i] > 3:
+        if arr[i] < 1 or arr[i] > 3:
             return(0)
     return(arr)
     
 
-
+# func to make Player 1 move
 def FirstPlayerMove():
     chosenDot = []
     
@@ -31,7 +32,7 @@ def FirstPlayerMove():
         print(f'First Player Move is: {chosenDot}', end='')   
 
 
-
+# func to make Player 2 move
 def SecondPlayerMove():
     chosenDot = []
     
