@@ -1,5 +1,15 @@
 import random
 from random import randint
+import os
+
+GameNums_2D = [ [randint(1, 9) for j in [[]] * 3 ] for i in [[]] * 3 ] # creating 3x3 field with random nums in it
+score = [0,0]   # [0] - first player score, [1] - second player score
+turn_counter = 1    # turn counter
+
+# func to clear console
+def clearConsole():
+    # to-do :D
+    pass
 
 # func to display field in the console
 def gamefield_gen_2D(GameNums_2D):
@@ -19,7 +29,7 @@ def convertDotCoordsToInt(arr):
     
 
 # func to make Player 1 move
-def FirstPlayerMove():
+def FirstPlayerMove(turn_counter, score):
     chosenDot = []
     
     print('First Player Move: ', end='')
@@ -27,13 +37,17 @@ def FirstPlayerMove():
         
     if convertDotCoordsToInt(chosenDot) == 0:
         print('Incorrect dot coordinats input')
-        main()
+        clearConsole()
+        main(turn_counter, score)
     else: 
-        print(f'First Player Move is: {chosenDot}', end='')   
+        print(f'First Player Move is: {chosenDot}', end='')
+        turn_counter+=1
+        clearConsole()
+        main(turn_counter, score)
 
 
 # func to make Player 2 move
-def SecondPlayerMove():
+def SecondPlayerMove(turn_counter, score):
     chosenDot = []
     
     print('Second Player Move: ', end='')
@@ -41,28 +55,27 @@ def SecondPlayerMove():
         
     if convertDotCoordsToInt(chosenDot) == 0:
         print('Incorrect dot coordinats input')
-        main()
+        clearConsole()
+        main(turn_counter, score)
     else: 
-        print(f'Second Player Move is: {chosenDot}', end='')   
+        print(f'Second Player Move is: {chosenDot}', end='')
+        turn_counter+=1
+        clearConsole()
+        main(turn_counter, score)
 
 
 
-def main():
-    # creating array that will be the field
-    GameNums_2D = [ [randint(1, 9) for j in [[]] * 3 ] for i in [[]] * 3 ]
-    first_dude_score = 0
-    second_dude_score = 0
-    turn_counter = 1
-
+def main(turn_counter, score):
+    
     gamefield_gen_2D(GameNums_2D)
     
     if turn_counter % 2 != 0:
-        FirstPlayerMove()
+        FirstPlayerMove(turn_counter, score)
         turn_counter+=1;
     else:
-        SecondPlayerMove()
+        SecondPlayerMove(turn_counter, score)
         turn_counter+=1;
 
 
 if __name__ == '__main__':
-    main()
+    main(turn_counter, score)
