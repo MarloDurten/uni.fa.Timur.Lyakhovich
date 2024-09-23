@@ -44,7 +44,8 @@ def isTherePossibleMoveLeftSP(GameNums_2D, prev_move):
 
 # func to make Player 1 move
 def FirstPlayerMove(turn_counter, score, prev_move):
-        
+    
+    # check if the game is over( are there any moves left )
     if (isTherePossibleMoveLeftFP(GameNums_2D, prev_move) == False) and (isTherePossibleMoveLeftSP(GameNums_2D, prev_move) == False):
         endGame(turn_counter, score)        
     else:
@@ -95,7 +96,8 @@ def FirstPlayerMove(turn_counter, score, prev_move):
 
 # func to make Player 2 move
 def SecondPlayerMove(turn_counter, score, prev_move):
-        
+    
+    # check if the game is over( are there any moves left )
     if (isTherePossibleMoveLeftFP(GameNums_2D, prev_move) == False) and (isTherePossibleMoveLeftSP(GameNums_2D, prev_move) == False):
         endGame(turn_counter, score)
     else:
