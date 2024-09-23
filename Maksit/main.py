@@ -1,27 +1,20 @@
-import random 
+import random
+from random import randint
 
-GameNums_2D=[]
-
-def gamelogic_NumsGen_2D(GameNums_2D): #Работает
-    for string in range(3):
-        rN=[]
-        for n in range(3):
-            num=random.randint(1,9)
-            rN.append(num)
-        GameNums_2D.append(rN)
-
-
-
+# creating array that will be the field
+GameNums_2D = [ [randint(1, 9) for j in [[]] * 3 ] for i in [[]] * 3 ]
+            
+# func to display field in the console
 def gamefield_gen_2D(GameNums_2D): # Работает
-   for arr in GameNums_2D:
-       print('| {} | {} | {} |'.format(arr[0],arr[1],arr[2]))
-
-
+    print('')
+    for i in GameNums_2D:
+        for j in i:
+            print(f'   {j}', end = '   ')
+        print('\n')
+    
 
 # test
-
-gamelogic_NumsGen_2D(GameNums_2D)
-print(GameNums_2D)
+        
 gamefield_gen_2D(GameNums_2D)
 
 
