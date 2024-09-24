@@ -4,10 +4,22 @@ import random
 from random import randint
 import os
 
-GameNums_2D = [ [randint(1, 9) for j in [[]] * 3 ] for i in [[]] * 3 ] # creating 3x3 field with random nums in it
-score = [0,0]   # [0] - first player score, [1] - second player score
-turn_counter = 1    # turn counter
-prev_move = [-1,-1]
+def newGame():
+    global GameNums_2D; GameNums_2D = [ [randint(1, 9) for j in [[]] * 3 ] for i in [[]] * 3 ] # creating 3x3 field with random nums in it
+    global score; score = [0,0]   # [0] - first player score, [1] - second player score
+    global turn_counter; turn_counter = 1    # turn counter
+    global prev_move; prev_move = [-1,-1]
+    
+def gameLogic(turn_counter, score, prev_move):
+    if turn_counter == -1:
+        main()
+    else:
+        print('\n'*2)
+        gamefield_gen_2D(GameNums_2D, turn_counter, score)
+        if turn_counter % 2 != 0:
+            FirstPlayerMove(turn_counter, score, prev_move)
+        else:
+            SecondPlayerMove(turn_counter, score, prev_move)
 
 # func to clear console
 def clearConsole():
@@ -98,7 +110,7 @@ def FirstPlayerMove(turn_counter, score, prev_move):
             (isTherePossibleMoveLeftSP(GameNums_2D, prev_move) == False)):
             endGame(turn_counter, score)
         else:
-            main(turn_counter, score, prev_move)
+            gameLogic(turn_counter, score, prev_move)
     
 
 
@@ -147,7 +159,7 @@ def SecondPlayerMove(turn_counter, score, prev_move):
                 (isTherePossibleMoveLeftSP(GameNums_2D, prev_move) == False)):
                 endGame(turn_counter, score)
             else:
-                main(turn_counter, score, prev_move)
+                gameLogic(turn_counter, score, prev_move)
         
 
 
@@ -161,21 +173,22 @@ def endGame(turn_counter, score):
         print('   Winner - Second Player.')
         print(f'   Second Player Score:{score[1]}, First Player Score:{score[0]}')
     turn_counter = -1
-    main(-1,[],[])
+    gameLogic(-1,[],[])
 
 
-def main(turn_counter, score, prev_move):
-    if turn_counter == -1:
+def main():
+    print('Wanna play a game? (Y/N): ')
+    command = str(input())
+    if command == 'Y':
+        newGame()
+        gameLogic(turn_counter, score, prev_move)
+    else:
+        print('Ok. Bye.')
         sys.exit()
         return 0
-    else:
-        print('\n'*2)
-        gamefield_gen_2D(GameNums_2D, turn_counter, score)
-        if turn_counter % 2 != 0:
-            FirstPlayerMove(turn_counter, score, prev_move)
-        else:
-            SecondPlayerMove(turn_counter, score, prev_move)
+    
+    
 
 
 if __name__ == '__main__':
-    main(turn_counter, score, prev_move)
+    main()
