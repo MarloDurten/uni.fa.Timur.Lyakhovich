@@ -10,8 +10,8 @@ prev_move = [-1,-1]
 
 # func to clear console
 def clearConsole():
-    # to-do :D
-    pass
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
 
 # func to display field in the console
 def gamefield_gen_2D(GameNums_2D, turn_counter, score):
@@ -58,7 +58,7 @@ def FirstPlayerMove(turn_counter, score, prev_move):
         if isTherePossibleMoveLeftFP(GameNums_2D, prev_move) == False and (prev_move[0] != -1 and prev_move[1] != -1):
             print('There is no moves left for First Player, so Second Player keeps on cooking')
             turn_counter+=1
-            clearConsole()
+            #clearConsole()
             SecondPlayerMove(turn_counter, score, prev_move)
         
         chosenDot = []
@@ -68,7 +68,7 @@ def FirstPlayerMove(turn_counter, score, prev_move):
         
         if convertDotCoordsToInt(chosenDot) == 0:
             print('     !!! Incorrect dot coordinats input')
-            clearConsole()
+            #clearConsole()
             FirstPlayerMove(turn_counter, score, prev_move)
         
         else:
@@ -81,7 +81,7 @@ def FirstPlayerMove(turn_counter, score, prev_move):
                 if chosenDot[1] == prev_move[1]:    # if the move is being made in the same row as the previous one
                     if GameNums_2D[chosenDot[1]-1][chosenDot[0]-1] == ' ':    # if the move was already made before ('' means not avaliable)
                         print('     !!! You are trying to choose already made before move')
-                        clearConsole()
+                        #clearConsole()
                         FirstPlayerMove(turn_counter, score, prev_move)
                     else:
                         prev_move = chosenDot
@@ -89,7 +89,7 @@ def FirstPlayerMove(turn_counter, score, prev_move):
                 
                 else:
                     print('     !!! Gotta make move in the same ROW as the first player')
-                    clearConsole()
+                    #clearConsole()
                     FirstPlayerMove(turn_counter, score, prev_move)
         
             print(f'\nFirst Player Move is: {chosenDot}({GameNums_2D[chosenDot[1]-1][chosenDot[0]-1]}). It makes their score: {score[0]}', end='')
@@ -112,7 +112,7 @@ def SecondPlayerMove(turn_counter, score, prev_move):
         if isTherePossibleMoveLeftSP(GameNums_2D, prev_move) == False:
             print('There is no moves left for Second Player, so First Player keeps on cooking')
             turn_counter+=1
-            clearConsole()
+            #clearConsole()
             FirstPlayerMove(turn_counter, score, prev_move)
         
         chosenDot = []
@@ -122,14 +122,14 @@ def SecondPlayerMove(turn_counter, score, prev_move):
         
         if convertDotCoordsToInt(chosenDot) == 0:
             print('     !!! Incorrect dot coordinats input')
-            clearConsole()
+            #clearConsole()
             SecondPlayerMove(turn_counter, score, prev_move)
         
         else:
             if chosenDot[0] == prev_move[0]:    # if the move is being made in the same column as the previous one
                 if GameNums_2D[chosenDot[1]-1][chosenDot[0]-1] == ' ':    # if the move was already made before ('' means not avaliable)
                     print('     !!! You are trying to choose already made before move')
-                    clearConsole()
+                    #clearConsole()
                     SecondPlayerMove(turn_counter, score, prev_move)
                 else:
                     prev_move = chosenDot
@@ -137,7 +137,7 @@ def SecondPlayerMove(turn_counter, score, prev_move):
                 
             else:
                 print('     !!! Gotta make move in the same COLUMN as the first player')
-                clearConsole()
+                #clearConsole()
                 SecondPlayerMove(turn_counter, score, prev_move)
         
             print(f'\nSecond Player Move is: {chosenDot}({GameNums_2D[chosenDot[1]-1][chosenDot[0]-1]}). It makes their score: {score[1]}', end='')
